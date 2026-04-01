@@ -9,7 +9,12 @@ body {
   background: #f0f2f5;
   color: #1a1a2e;
   min-height: 100vh;
+  /* Respect iPhone notch and home bar */
   padding: 24px 16px;
+  padding-top: max(24px, env(safe-area-inset-top));
+  padding-bottom: max(24px, env(safe-area-inset-bottom));
+  padding-left: max(16px, env(safe-area-inset-left));
+  padding-right: max(16px, env(safe-area-inset-right));
 }
 
 .container {
@@ -226,14 +231,18 @@ h2 {
 /* Inputs */
 input[type="text"],
 input[type="number"] {
-  padding: 9px 12px;
+  padding: 12px 14px;
   border: 1.5px solid #ddd;
   border-radius: 8px;
-  font-size: 0.9rem;
+  /* 16px minimum prevents iOS auto-zoom on focus */
+  font-size: 16px;
   outline: none;
   transition: border-color 0.15s;
   background: #fafafa;
   color: #1a1a2e;
+  /* Remove iOS default styling */
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 input[type="text"]:focus,
@@ -303,13 +312,20 @@ input[type="number"]:focus {
   cursor: pointer;
   color: #ccc;
   font-size: 1.1rem;
-  padding: 2px 6px;
-  border-radius: 4px;
+  /* Large touch target for iPhone (min 44x44px recommended by Apple) */
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 8px;
+  border-radius: 8px;
   transition: color 0.15s, background 0.15s;
   line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.delete-btn:hover {
+.delete-btn:hover,
+.delete-btn:active {
   color: #ff4d6d;
   background: #ffe0e6;
 }
@@ -324,4 +340,49 @@ input[type="number"]:focus {
 /* Utilities */
 .hidden {
   display: none !important;
+}
+
+/* ---- iPhone / small screen overrides ---- */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  /* Stack expense form vertically on small screens */
+  .form-row {
+    flex-direction: column;
+  }
+
+  .form-row input[type="text"],
+  .form-row input[type="number"] {
+    width: 100%;
+  }
+
+  .form-row .btn {
+    width: 100%;
+    padding: 14px;
+  }
+
+  /* Ensure all primary buttons are finger-friendly */
+  .btn {
+    min-height: 44px;
+  }
+
+  /* Summary values slightly smaller so they don't clip */
+  .summary-value {
+    font-size: 1rem;
+  }
+
+  /* Budget form stacks */
+  .budget-form {
+    flex-direction: column;
+  }
+
+  .budget-form .btn {
+    width: 100%;
+  }
 }

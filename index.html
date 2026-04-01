@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Spending Tracker" />
   <title>Spending Tracker</title>
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -24,6 +27,7 @@
           placeholder="Enter monthly amount"
           min="0"
           step="0.01"
+          inputmode="decimal"
         />
         <button class="btn btn-primary" id="save-budget-btn">Save</button>
         <button class="btn btn-secondary" id="cancel-budget-btn">Cancel</button>
@@ -73,6 +77,7 @@
             placeholder="Amount"
             min="0.01"
             step="0.01"
+            inputmode="decimal"
             required
           />
           <button class="btn btn-primary" type="submit">Add</button>
